@@ -1,28 +1,32 @@
-$clickShareBasePath = "HKCU:\Software\Barco\ClickShare Client";
-$calendarIntegrationRegistryName = "CalendarIntegration";
+$clickShareBasePath = "HKCU:\Software\Barco\ClickShare Client"
+$calendarIntegrationRegistryName = "CalendarIntegration"
 
-$isClickShareInstalled = Test-Path $clickShareBasePath;
+$isClickShareInstalled = Test-Path $clickShareBasePath
 
 if (!$isClickShareInstalled) {
-    Write-Host "ClickShare is not installed";
-    Exit 0;
+    Write-Host "ClickShare is not installed"
+    exit 0
 }
 
 function Set-ClickShareCalendarIntegrationToFalse {
-    Set-ItemProperty -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -Value false;
-    powershell .\FixUserShellFolderPermissions.ps1 -accepteula
+    Set-ItemProperty -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -Value false
+    try {
+        powershell .\FixUserShellFolderPermissions.ps1 -accepteula
+    } catch {
+        Write-Host "Something went wrong, but we don't really care here"
+    }
 }
 
-$doesCalendarIntegrationRegistryKeyExist = !!(Get-ItemProperty -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -ErrorAction SilentlyContinue);
+$doesCalendarIntegrationRegistryKeyExist = !!(Get-ItemProperty -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -ErrorAction SilentlyContinue)
 
 if (!$doesCalendarIntegrationRegistryKeyExist) {
     Set-ClickShareCalendarIntegrationToFalse
-    Exit 0;
+    exit 0
 }
 
 $isCalendarIntegrationRegistryKeySetToTrue = (Get-ItemPropertyValue -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -ErrorAction SilentlyContinue) -eq "true"
 
 if ($isCalendarIntegrationRegistryKeySetToTrue) {
     Set-ClickShareCalendarIntegrationToFalse
-    Exit 0;
+    exit 0
 }
