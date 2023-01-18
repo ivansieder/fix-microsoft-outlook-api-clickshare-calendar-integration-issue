@@ -5,4 +5,10 @@ If it detects that the calendar integration of Barco's ClickShare is enabled, th
 - run Barco's script to fix the unresponsive taskbar (https://www.barco.com/en/support/knowledge-base/6077-unresponsive-windows-taskbar-with-clickshare-app)
 
 Usage:
-- grab the `fix-microsoft-outlook-api-clickshare-calendar-integration-issue.intunewin` file and deploy it as Win32-App in Intune
+- in Intune, create a new Win32 App
+- upload the `fix-microsoft-outlook-api-clickshare-calendar-integration-issue.intunewin` package
+- Install command: `powershell -executionpolicy bypass -file install.ps1`
+- Uninstall command: `powershell -executionpolicy bypass -file uninstall.ps1` (`uninstall.ps1` is actually just an empty file, but it's required from Intune to provide such a command so for the simplicity we used an empty file)
+- Install behavior: User
+- Detection rules: upload the `detect.ps1` file
+- Assign all users
