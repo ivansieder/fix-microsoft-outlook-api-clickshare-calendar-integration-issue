@@ -22,4 +22,5 @@ if ($isCalendarIntegrationRegistryKeySetToTrue) {
     exit 1603
 }
 
+Write-Host "Everything fine, nothing to do"
 exit 0
