@@ -2,7 +2,7 @@ An Intune package to fix some issues related to M365-Apps along with ClickShare 
 
 If it detects that the calendar integration of Barco's ClickShare is enabled, this script does two things:
 - disable the calendar integration through a registry key
-- run Barco's script to fix the unresponsive taskbar (https://www.barco.com/en/support/knowledge-base/6077-unresponsive-windows-taskbar-with-clickshare-app)
+- run Barco's script (and accepts silently their EULA) to fix the unresponsive taskbar (https://www.barco.com/en/support/knowledge-base/6077-unresponsive-windows-taskbar-with-clickshare-app)
 
 Usage:
 - in Intune, create a new Win32 App

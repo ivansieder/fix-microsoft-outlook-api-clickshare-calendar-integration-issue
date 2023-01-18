@@ -10,7 +10,7 @@ if (!$isClickShareInstalled) {
 
 function Set-ClickShareCalendarIntegrationToFalse {
     Set-ItemProperty -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -Value false;
-    powershell .\FixUserShellFolderPermissions.ps1
+    powershell .\FixUserShellFolderPermissions.ps1 -accepteula
 }
 
 $doesCalendarIntegrationRegistryKeyExist = !!(Get-ItemProperty -Path $clickShareBasePath -Name $calendarIntegrationRegistryName -ErrorAction SilentlyContinue);
